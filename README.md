@@ -6,7 +6,7 @@ The WAAPI Wrapper is a Python library designed to simplify the integration with 
 
 
 ```bash
-pip install git+https://github.com/yourusername/waapi_wrapper.git
+pip install git+https://github.com/Raj1v/WAAPI-Wrapper
 ```
 
 ## Usage
