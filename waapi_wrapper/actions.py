@@ -8,6 +8,7 @@ SEND_MEDIA_ENDPOINT = "client/action/send-media"
 SEND_VCARD_ENDPOINT = "client/action/send-vcard"
 GET_ALL_CHATS_ENDPOINT = "client/action/get-chats"
 GET_GROUP_INFO_ENDPOINT = "client/action/get-group-info"
+SEND_SEEN_ENDPOINT = "client/action/send-seen"
 
 
 def _construct_api_url(instance_id: str, endpoint: str):
@@ -25,6 +26,12 @@ def send_message(message: str, chat_id: str, instance_id: str) -> requests.Respo
         payload=payload,
     )
     return response
+
+
+def send_seen(chat_id: str, instance_id: str) -> requests.Response:
+    return _send_request(
+        chat_id=chat_id, instance_id=instance_id, endpoint=SEND_SEEN_ENDPOINT
+    )
 
 
 def _send_request(
