@@ -1,5 +1,10 @@
 from waapi_wrapper.webhook import handle_waapi_event
-from waapi_wrapper.events import MessageEvent, DisconnectedEvent, GroupJoinEvent
+from waapi_wrapper.events import (
+    DisconnectedEvent,
+    GroupJoinEvent,
+    TextMessageEvent,
+    VoiceMessageEvent,
+)
 import json
 
 
@@ -27,7 +32,7 @@ def test_handle_message_event():
     }
     """
     event = handle_waapi_event(json.loads(raw_data_message))
-    assert isinstance(event, MessageEvent)
+    assert isinstance(event, TextMessageEvent)
     assert event.instance_id == "33"
     assert event.notifyName == "John"
     assert (
@@ -35,6 +40,15 @@ def test_handle_message_event():
     )
     assert event.from_ == "50611223344@c.us"
     assert event.to == "50611223355@c.us"
+
+
+def test_voice_message_event():
+    raw_data_voice_message = json.load(open("tests/data/audio_message.json"))
+    event = handle_waapi_event(raw_data_voice_message)
+    assert isinstance(event, VoiceMessageEvent)
+    assert event.mimetype == "audio/ogg; codecs=opus"
+    assert event.duration == "5"
+    assert event.media_data != ""
 
 
 def test_disconnected_event():

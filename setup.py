@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="waapi_wrapper",
-    version="0.1",
+    version="0.2",
     packages=find_packages(),
     install_requires=["pydantic>=2.0"],
     author="Raj1v",
