@@ -4,7 +4,8 @@ from waapi_wrapper.events import (
     VoiceMessageEvent,
 )
 import json
-import importlib.resources as pkg_resources
+from importlib import resources as impresources
+from waapi_wrapper import data
 
 
 def sample_text_message_event() -> TextMessageEvent:
@@ -37,8 +38,10 @@ def sample_text_message_event() -> TextMessageEvent:
 
 
 def sample_voice_message_event() -> VoiceMessageEvent:
-    with pkg_resources.path("waapi_wrapper", "test/data/audio_message.json") as path:
-        raw_data_voice_message = json.load(open(path))
+    # with pkg_resources.path("waapi_wrapper", "test/data/audio_message.json") as path:
+    data_file = impresources.files(data) / "audio_message.json"
+    with data_file.open("r") as f:
+        raw_data_voice_message = json.load(f)
 
     event = handle_waapi_event(raw_data_voice_message)
     assert isinstance(event, VoiceMessageEvent)
